@@ -1,8 +1,8 @@
 function Product() {
-    this.prodID = '';
-    this.prodImg = '';
-    this.prodName = '';
-    this.prodType = '';
-    this.prodPrice = '';
-    this.prodDesc = '';
+    this.id = '';
+    this.img = '';
+    this.name = '';
+    this.type = '';
+    this.price = '';
+    this.description = '';
 };

@@ -51,15 +51,15 @@ function renderProduct(arr) {
         var prod = arr[i];
         htmlStr += `
             <tr>
-                <td>${prod.prodID}</td>
-                <td>${prod.prodImg}</td>
-                <td>${prod.prodType}</td>
-                <td>${prod.prodName}</td>
-                <td>${prod.prodPrice}</td>
-                <td>${prod.prodDesc}</td>
+                <td>${prod.id}</td>
+                <td>${prod.img}</td>
+                <td>${prod.type}</td>
+                <td>${prod.name}</td>
+                <td>${prod.price}</td>
+                <td>${prod.description}</td>
                 <td>
-                    <button class="btn btn-danger" onclick="delProd('${prod.prodID}')">Delete</button>
-                    <button class="btn btn-primary" onclick="editProd('${prod.prodID}')">Edit</button>
+                    <button class="btn btn-danger" onclick="delProd('${prod.id}')">Delete</button>
+                    <button class="btn btn-primary" onclick="editProd('${prod.id}')">Edit</button>
                 </td>
             </tr>
         `;
@@ -69,7 +69,7 @@ function renderProduct(arr) {
 
 function delProd(prodIdClick) {
     var promise = axios({
-        url: 'http://svcy.myclass.vn/api/Product/DeleteProduct' + prodIdClick,
+        url: 'http://svcy.myclass.vn/api/Product/DeleteProduct/' + prodIdClick,
         method: 'DELETE',
     });
 
@@ -85,19 +85,19 @@ function delProd(prodIdClick) {
 
 function editProd(prodIdClick) {
     var promise = axios({
-        url: 'http://svcy.myclass.vn/api/Product/GetById' + prodIdClick,
+        url: 'http://svcy.myclass.vn/api/Product/GetById/' + prodIdClick,
         method: 'GET',
     });
 
     promise.then(function (result) {
         var prod = result.data;
 
-        document.querySelector('#prodID').value = prod.prodID;
-        document.querySelector('#prodImg').value = prod.prodImg;
-        document.querySelector('#prodName').value = prod.prodName;
-        document.querySelector('#prodType').value = prod.prodType;
-        document.querySelector('#prodPrice').value = prod.prodPrice;
-        document.querySelector('#ProdDesc').value = prod.ProdDesc;
+        document.querySelector('#prodId').value = prod.id;
+        document.querySelector('#prodImg').value = prod.img;
+        document.querySelector('#prodName').value = prod.name;
+        document.querySelector('#prodType').value = prod.type;
+        document.querySelector('#prodPrice').value = prod.price;
+        document.querySelector('#ProdDesc').value = prod.description;
     });
 
     promise.catch(function (error) {
@@ -108,15 +108,15 @@ function editProd(prodIdClick) {
 document.querySelector('#btnUpdate').onclick = function () {
     var prodUpdate = new Product();
 
-    prodUpdate.prodID = document.querySelector('#prodID').value;
-    prodUpdate.prodImg = document.querySelector('#prodImg').value;
-    prodUpdate.prodName = document.querySelector('#prodName').value;
-    prodUpdate.prodType = document.querySelector('#prodType').value;
-    prodUpdate.prodPrice = document.querySelector('#prodPrice').value;
-    prodUpdate.prodDesc = document.querySelector('#prodDesc').value;
+    prodUpdate.id = document.querySelector('#prodId').value;
+    prodUpdate.img = document.querySelector('#prodImg').value;
+    prodUpdate.name = document.querySelector('#prodName').value;
+    prodUpdate.type = document.querySelector('#prodType').value;
+    prodUpdate.price = document.querySelector('#prodPrice').value;
+    prodUpdate.description = document.querySelector('#prodDesc').value;
 
     var promise = axios({
-        url: 'http://svcy.myclass.vn/api/Product/UpdateProduct' + prodUpdate.prodID,
+        url: 'http://svcy.myclass.vn/api/Product/UpdateProduct/' + prodUpdate.id,
         method: 'PUT',
         data: prodUpdate,
     });
